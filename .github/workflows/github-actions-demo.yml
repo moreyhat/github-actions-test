@@ -19,9 +19,6 @@ jobs:
         - name: Install dependencies
           working-directory: ./algorithm/sort/quick-sort/go
           run: go get .
-        - name: Build
-          working-directory: ./algorithm/sort/quick-sort/go
-          run: go build -v ./...
         - name: Test
           working-directory: ./algorithm/sort/quick-sort/go
           run: go test
