@@ -1,0 +1,26 @@
+name: Testing for Python
+run-name: ${{ github.actor }} is testing Python application
+on: 
+    pull_request:
+        branches:
+            - main
+    workflow_dispatch:
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          python-version: ['3.9', '3.10', '3.11', '3.12']
+      steps:
+        - uses: actions/checkout@v4
+        - name: Setup Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v4
+          with:
+            python-version: ${{ matrix.python-version }}
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pytest
+        - name: Test
+          working-directory: ./algorithm/sort/quick-sort/python
+          run: pytest
