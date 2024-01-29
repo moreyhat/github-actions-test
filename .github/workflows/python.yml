@@ -11,6 +11,9 @@ jobs:
       strategy:
         matrix:
           python-version: ['3.9', '3.10', '3.11', '3.12']
+      permissions:
+        id-token: write
+        contents: read
       steps:
         - uses: actions/checkout@v4
         - name: Setup Python ${{ matrix.python-version }}
@@ -24,3 +27,11 @@ jobs:
         - name: Test
           working-directory: ./algorithm/sort/quick-sort/python
           run: pytest
+        - name: Configure AWS credentials from AWS account
+          uses: aws-actions/configure-aws-credentials@v3
+          with:
+            role-to-assume: arn:aws:iam::796020531302:role/test-github-actions
+            aws-region: us-west-2
+        - name: Upload contents to S3
+          working-directory: ./algorithm/sort/quick-sort/python
+          run: aws s3 sync . s3://test-github-moriya
