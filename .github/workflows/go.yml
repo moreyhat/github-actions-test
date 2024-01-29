@@ -1,5 +1,5 @@
-name: GtiHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions
+name: Testing for Go application
+run-name: ${{ github.actor }} is testing Go Application
 on: 
     pull_request:
         branches:
