@@ -28,9 +28,9 @@ func TestQuickSort(t *testing.T) {
 	for _, test_case := range test_cases {
 		input := test_case[0]
 		expected := test_case[1]
-		actual := QuickSort(input)
-		if !reflect.DeepEqual(expected, actual) {
-			t.Errorf("The output from QuickSort is not expected. expected: %v, output: %v", expected, actual)
+		quickSort(input, 0, len(input)-1)
+		if !reflect.DeepEqual(expected, input) {
+			t.Errorf("The output from QuickSort is not expected. expected: %v, output: %v", expected, input)
 		}
 	}
 }
