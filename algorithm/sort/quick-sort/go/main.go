@@ -1,26 +1,23 @@
 package main
 
-func QuickSort(arr []int) []int {
-	if len(arr) < 2 {
-		return arr
-	}
+func partition(arr []int, low int, high int) int {
+	i := low
 
-	mid := int(len(arr) / 2)
-	left := []int{}
-	right := []int{}
-
-	for i, item := range arr {
-		if i != mid {
-			if item > arr[mid] {
-				right = append(right, item)
-			} else {
-				left = append(left, item)
-			}
+	for j := low; j < high; j++ {
+		if arr[j] < arr[high] {
+			arr[i], arr[j] = arr[j], arr[i]
+			i++
 		}
 	}
+	arr[i], arr[high] = arr[high], arr[i]
+	return i
+}
 
-	sorted_left := QuickSort(left)
-	sorted_right := QuickSort(right)
+func quickSort(arr []int, low int, high int) {
+	if low < high {
+		i := partition(arr, low, high)
 
-	return append(append(sorted_left, arr[mid]), sorted_right...)
+		quickSort(arr, low, i-1)
+		quickSort(arr, i+1, high)
+	}
 }
