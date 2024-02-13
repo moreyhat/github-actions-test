@@ -1,0 +1,19 @@
+name: Testing for Rust application
+run-name: ${{ github.actor }} is testing Rust Application
+on: 
+    pull_request:
+        branches:
+            - main
+    workflow_dispatch:
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Setup Rust tool chain
+          uses: actions-rs/toolchain@v1
+          with:
+            toolchain: stable
+        - name: Test
+          working-directory: ./algorithm/sort/quick-sort/rust
+          run: cargo test
